@@ -15,4 +15,4 @@ Berikut adalah langkah-langkah untuk menjalankan skrip:
 
 ## Roadmap
 
-1. i'll try to build chrome extension, so it can be user friendly
+1. trying to build on chrome extensions

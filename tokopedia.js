@@ -10,19 +10,6 @@ const { v4: uuid } = require("uuid");
 // add stealth plugin and use defaults (all evasion techniques)
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
-puppeteer.use(
-  require("puppeteer-extra-plugin-user-preferences")({
-    userPrefs: {
-      download: {
-        prompt_for_download: false,
-        open_pdf_in_system_reader: false,
-      },
-      plugins: {
-        always_open_pdf_externally: false,
-      },
-    },
-  })
-);
 
 (async () => {
   try {
@@ -80,9 +67,6 @@ puppeteer.use(
       console.log(url, "url");
       const page = await browser.newPage();
 
-      // // // authenticate proxy credential (if any)
-      // // // await page.authenticate({ username: un, password: pw });
-
       const response = await page.goto(url);
       const htmlRawText = await response.text();
       await fsPromises.writeFile(
@@ -91,13 +75,6 @@ puppeteer.use(
           `/log/raw_html/tokopedia_search_product_raw_html_${query}_${requestId}_page${index}.html`,
         htmlRawText
       );
-      // await browser.close();
-      // console.log(htmlRawText, "fff");
-
-      // development mode, it'll delete
-      // const htmlRawText = await fsPromises.readFile(
-      //   "tokopedia_search_product_raw_html.html"
-      // );
 
       // from html response we'll get script text based on text match `window.NODE_ENV = "production"`
       const dom = new JSDOM(htmlRawText);
